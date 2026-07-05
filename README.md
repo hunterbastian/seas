@@ -1,5 +1,7 @@
 # High Seas
 
+Play it: https://hunterbastian.github.io/seas/
+
 A little endless sailing game, built to feel great on an iPhone: drag your
 thumb to steer a small sailboat across an open, living sea — dodge rocks and
 mines, scoop up coins, bottles, and leaping fish, and try to outlast the next
