@@ -5,7 +5,7 @@
 // this force-kills the browser after a short grace period rather than
 // waiting on its own exit.
 import { spawn } from "node:child_process";
-import { mkdtempSync } from "node:fs";
+import { existsSync, mkdtempSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -34,7 +34,18 @@ const args = [
   url,
 ];
 
-const chrome = spawn("google-chrome", args);
+const browserCandidates = [
+  process.env.CHROME_BIN,
+  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+  "google-chrome",
+  "chromium",
+].filter(Boolean);
+
+const browserBin = browserCandidates.find((candidate) =>
+  candidate.includes("/") ? existsSync(candidate) : true
+);
+
+const chrome = spawn(browserBin, args);
 let stderr = "";
 chrome.stderr.on("data", (d) => (stderr += d.toString()));
 
